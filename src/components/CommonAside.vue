@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3>Moore信息管理系统</h3>
     <el-menu
       default-active="1-4-1"
       class="el-menu-vertical-demo"
