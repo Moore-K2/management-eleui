@@ -10,8 +10,10 @@
       @close="handleClose"
       :collapse="isCollapse"
     >
-      <h3>摩尔庄园</h3>
-      <!-- 遍历首页，商品管理，用户管理 -->
+      <h3>
+        {{ isCollapse ? "Moore" : "摩尔の庄园" }}
+      </h3>
+      <!-- 菜单：遍历首页，商品管理，用户管理 -->
       <el-menu-item
         v-for="item in noChildren"
         :key="item.path"
@@ -142,9 +144,15 @@ export default {
   height: 100vh;
   border: none;
   h3 {
+    margin-top: 30px;
+    font-size: 18px;
     text-align: center;
-    line-height: 38px;
+    line-height: 39px;
     color: #fff;
   }
+}
+.el-menu-item,
+.el-submenu__title {
+  font-size: 16px;
 }
 </style>

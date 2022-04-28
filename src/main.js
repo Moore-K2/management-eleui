@@ -1,7 +1,26 @@
 import Vue from 'vue'
 import App from './App.vue'
 // 按需引入
-import { Button, Row, Radio, Container, Aside, Header, Main, Menu, Submenu, MenuItemGroup, MenuItem, Dropdown, DropdownMenu, DropdownItem } from 'element-ui';
+import {
+    Button,
+    Row,
+    Radio,
+    Container,
+    Aside,
+    Header,
+    Main,
+    Menu,
+    Submenu,
+    MenuItemGroup,
+    MenuItem,
+    Dropdown,
+    DropdownMenu,
+    DropdownItem,
+    Col,
+    Card,
+
+
+} from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import "./assets/less/index.css"
 
@@ -26,6 +45,8 @@ Vue.use(MenuItem)
 Vue.use(Dropdown)
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
+Vue.use(Col)
+Vue.use(Card)
 
 new Vue({
     render: h => h(App),
