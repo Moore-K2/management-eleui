@@ -1,5 +1,7 @@
 <template>
-  <div style="color: blue">我是User页面</div>
+  <div>
+    <h1 style="color: blue">我是User页面</h1>
+  </div>
 </template>
 
 <script>

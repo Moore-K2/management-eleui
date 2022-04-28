@@ -1,24 +1,29 @@
 <template>
   <div>
-    <h3>Moore信息管理系统</h3>
     <el-menu
       default-active="1-4-1"
+      background-color="#545c65"
+      text-color="#fff"
+      active-text-color="#ffd04b"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"
       :collapse="isCollapse"
     >
+      <h3>摩尔庄园</h3>
+      <!-- 遍历首页，商品管理，用户管理 -->
       <el-menu-item
         v-for="item in noChildren"
         :key="item.path"
         :index="item.path"
+        @click="clickMenu(item)"
       >
         <!-- 图标字体,这儿要拼接，必须前面加：实现动态绑定，这样才不会解析为字符串 -->
         <i :class="'el-icon-' + item.icon"></i>
         <span slot="title">{{ item.label }}</span>
       </el-menu-item>
 
-      <!-- 一级菜单 -->
+      <!-- 一级菜单----其他  -->
       <el-submenu
         v-for="item in hasChildren"
         :key="item.path"
@@ -33,7 +38,7 @@
           v-for="(subItem, subIndex) in item.children"
           :key="subItem.path"
         >
-          <el-menu-item :index="subIndex">
+          <el-menu-item :index="subIndex + ''">
             {{ subItem.label }}
           </el-menu-item>
         </el-menu-item-group>
@@ -48,7 +53,7 @@ export default {
   data() {
     return {
       // 是否折叠
-      isCollapse: false,
+      // isCollapse: true,
       // 定义接口数组，用于渲染侧边栏
       menu: [
         {
@@ -102,6 +107,12 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
+    clickMenu(item) {
+      // 因为VueRouter已经全局使用，所以可以直接调this.$router
+      this.$router.push({
+        name: item.name,
+      });
+    },
   },
   computed: {
     noChildren() {
@@ -112,13 +123,28 @@ export default {
       //返回menu数组中有chirldren属性的对象
       return this.menu.filter((item) => item.children);
     },
+    // use vuex and $store to obtain data[isCollapse]
+    isCollapse() {
+      // console.log(this.$store.state);
+      return this.$store.state.tab.isCollapse;
+    },
   },
 };
 </script>
 
-<style>
+<style lang="less" scoped>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;
+}
+.el-menu {
+  // vh是屏幕视角
+  height: 100vh;
+  border: none;
+  h3 {
+    text-align: center;
+    line-height: 38px;
+    color: #fff;
+  }
 }
 </style>
