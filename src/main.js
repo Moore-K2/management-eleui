@@ -18,7 +18,8 @@ import {
     DropdownItem,
     Col,
     Card,
-
+    Table,
+    TableColumn
 
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -47,6 +48,8 @@ Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
 Vue.use(Col)
 Vue.use(Card)
+Vue.use(Table)
+Vue.use(TableColumn)
 
 new Vue({
     render: h => h(App),
