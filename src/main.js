@@ -28,6 +28,7 @@ import "./assets/less/index.css"
 
 import router from "./router/index.js"
 import store from "./store/index.js"
+import http from "axios" //全局引入axios. 它不是插件
 // 避免生产提示错误
 Vue.config.productionTip = false
 
@@ -50,6 +51,8 @@ Vue.use(Col)
 Vue.use(Card)
 Vue.use(Table)
 Vue.use(TableColumn)
+
+Vue.prototype.$http = http //设置全局变量，这样$http就在所有的Vue实例中可以用。$是避免与已被定义的数据冲突
 
 new Vue({
     render: h => h(App),
