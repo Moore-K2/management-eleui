@@ -29,6 +29,7 @@ import "./assets/less/index.css"
 import router from "./router/index.js"
 import store from "./store/index.js"
 import http from "axios" //全局引入axios. 它不是插件
+import "../api/mock.js" //对Mock进行引用
 // 避免生产提示错误
 Vue.config.productionTip = false
 

@@ -97,6 +97,13 @@ export default {
               icon: "setting",
               url: "Other/PageTwo",
             },
+            {
+              path: "/page3",
+              name: "page3",
+              label: "页面3",
+              icon: "setting",
+              url: "Other/PageThree",
+            },
           ],
         },
       ],

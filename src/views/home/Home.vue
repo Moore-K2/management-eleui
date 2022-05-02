@@ -57,7 +57,10 @@
         </div>
         <!-- 折现图，柱状图，扇形图 -->
         <div class="lineChart">
-          <el-card style="height: 180px"></el-card>
+          <el-card style="height: 260px">
+            <!-- 定义折线图容器 -->
+            <div ref="linechart" style="height: 260px"></div>
+          </el-card>
         </div>
         <div class="bar-fan-chart">
           <el-card style="height: 180px"></el-card>
@@ -69,60 +72,65 @@
 </template>
 
 <script>
+// 引入axios
+import { getData } from "../../../api/data.js";
+//引入echarts
+import * as echarts from "echarts";
 export default {
   data() {
     return {
       userImg: require("../../assets/img/user.png"),
-      tableData: [
-        {
-          name: "oppo",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "苹果",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "小米",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "三星",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "魅族",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "魅族",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "魅族",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "魅族",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-      ],
+      // tableData: [
+      //   {
+      //     name: "oppo",
+      //     todayBuy: 100,
+      //     monthBuy: 300,
+      //     totalBuy: 800,
+      //   },
+      //   {
+      //     name: "苹果",
+      //     todayBuy: 100,
+      //     monthBuy: 300,
+      //     totalBuy: 800,
+      //   },
+      //   {
+      //     name: "小米",
+      //     todayBuy: 100,
+      //     monthBuy: 300,
+      //     totalBuy: 800,
+      //   },
+      //   {
+      //     name: "三星",
+      //     todayBuy: 100,
+      //     monthBuy: 300,
+      //     totalBuy: 800,
+      //   },
+      //   {
+      //     name: "魅族",
+      //     todayBuy: 100,
+      //     monthBuy: 300,
+      //     totalBuy: 800,
+      //   },
+      //   {
+      //     name: "魅族",
+      //     todayBuy: 100,
+      //     monthBuy: 300,
+      //     totalBuy: 800,
+      //   },
+      //   {
+      //     name: "魅族",
+      //     todayBuy: 100,
+      //     monthBuy: 300,
+      //     totalBuy: 800,
+      //   },
+      //   {
+      //     name: "魅族",
+      //     todayBuy: 100,
+      //     monthBuy: 300,
+      //     totalBuy: 800,
+      //   },
+      // ],
+      tableData: [],
       tableLabel: {
         name: "手机品牌",
         todayBuy: "今日购买",
@@ -170,6 +178,71 @@ export default {
       ],
     };
   },
+  mounted() {
+    getData().then((res) => {
+      console.log(res);
+      const { code, data } = res.data; // 对code与data在res的data下面解构
+      if (code === 20000) {
+        this.tableData = data.tableData;
+        // arr：一月份的各个品牌的销量
+        const arr = data.orderData.data;
+        const xAxis_Data = data.orderData.date;
+        const keyarray = Object.keys(arr[0]);
+        // console.log(keyarray);
+        const series = [];
+        // 1 forEach与map都遍历数组，都有三个参数index, item, arr；this都是指向window，
+        // 2 forEach不能返回数据，不改变数据，map会分配内存空间存储数组并返回
+        keyarray.forEach((key) => {
+          series.push({
+            name: key,
+            type: "line",
+            data: arr.map((item) => item[key]),
+          });
+        });
+        // console.log(series);
+        //1 基于准备好的dom，初始化echart
+        const myChart = echarts.init(this.$refs.linechart);
+        //2 指定图表的配置项和数据
+        const options = {
+          title: {
+            text: "2019年度手机月销量",
+            // left: "center",
+            textStyle: {
+              fontWeight: "bold",
+              fontSize: 15,
+              fontFamily: "楷书",
+              color: "red",
+            },
+          },
+          tooltip: {
+            trigger: "axis", // axis   item   none三个值
+          },
+          //x轴数据
+          xAxis: {
+            data: xAxis_Data,
+            name: "日期", //x轴
+            nameTextStyle: {
+              fontWeight: 600,
+              fontSize: 18,
+            },
+          },
+          // y轴数据，每条折线的名称
+          yAxis: {
+            name: "销量",
+            nameTextStyle: {
+              fontWeight: 600,
+              fontSize: 16,
+            },
+          },
+          legend: { data: keyarray }, //图例
+          //series:数组数据，里面是对象
+          series: series,
+        };
+        //3 使用刚指定的数据和配置项显示图
+        myChart.setOption(options);
+      }
+    });
+  },
 };
 </script>
 
@@ -203,7 +276,7 @@ export default {
   .order-box {
     // 让el-card进行横排列
     display: flex;
-    // 让弹性盒元素在必要的时候拆行：
+    // 让弹性盒元素在必要的时候拆行(换行)：
     flex-wrap: wrap;
     // 均匀排列-首元素起点在前，末尾在终点
     justify-content: space-between;

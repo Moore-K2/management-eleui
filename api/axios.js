@@ -37,6 +37,7 @@ class HttpRequest {
             return response;
         }, function(error) {
             //对响应错误做点什么 
+            console.log("error", error)
             return Promise.reject(error);
         })
     }
