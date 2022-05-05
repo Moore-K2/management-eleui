@@ -26,7 +26,7 @@
           <!-- prop可根据索引/key获取到对应的value值， label代表标签. height=value固定表头,value代表固定高度 -->
           <!-- 当el-table元素注入data数组后。在el-table-column用props属性对应对象中的键名即可填入数据 -->
           <!-- v-for="(value,key) in object" 对于对象来说就是键，对于数组来说就是索引 -->
-          <el-table :data="tableData" stripe="true" border height="390">
+          <el-table :data="tableData" stripe border height="390">
             <el-table-column
               v-for="(label, key) in tableLabel"
               :key="key"
@@ -190,8 +190,8 @@ export default {
       const { code, data } = res.data; // 对code与data在res的data下面解构
       if (code === 20000) {
         this.tableData = data.tableData;
-        // arr：一月份的各个品牌的销量
         // 一、渲染折线图
+        //arr：一月份的各个品牌的销量
         const arr = data.orderData.data;
         const xAxis_Data = data.orderData.date; // 折线图的横坐标
         const keyarray = Object.keys(arr[0]);
