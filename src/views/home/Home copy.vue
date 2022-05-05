@@ -62,11 +62,6 @@
           <el-card style="height: 260px">
             <!-- 定义折线图容器 -->
             <div ref="linechart" style="height: 260px; width: auto"></div>
-            <!-- Echarts组件实例化 -->
-            <!-- <echarts
-              :chart-data="echartData.order"
-              style="height: 250px; width: auto"
-            ></echarts> -->
           </el-card>
         </div>
         <div class="bar-fan-chart">
@@ -87,11 +82,7 @@
 import { getData } from "../../../api/data.js";
 //引入echarts
 import * as echarts from "echarts";
-// 引入Echarts组件
-// import Echarts from "../../components/Echarts.vue";
-
 export default {
-  // components: { Echarts },
   data() {
     return {
       userImg: require("../../assets/img/user.png"),
@@ -191,12 +182,6 @@ export default {
           color: "#5ab1ef",
         },
       ],
-      // 用于封装
-      echartData: {
-        order: { XData: [], series: [] },
-        user: { XData: [], series: [] },
-        sale: { series: [] },
-      },
     };
   },
   mounted() {
@@ -221,9 +206,6 @@ export default {
             data: arr.map((item) => item[key]),
           });
         });
-        // this.echartData.order.XData = xAxis_Data;
-        // this.echartData.order.series = series_line;
-
         // 1 初始化
         const myLineChart = echarts.init(this.$refs.linechart);
         // 2 指定折现图表的配置项和数据
@@ -264,7 +246,6 @@ export default {
         };
         // 3 根据数据项与配置渲染图
         myLineChart.setOption(options);
-
         // 二、渲染柱状图
         const xAxis_bar_data = data.userData.map((item) => item.date);
         const series_bar = [];
@@ -340,7 +321,7 @@ export default {
             }
             // console.log(total);
             let percent = ((value / total) * 100).toFixed(2);
-            // console.log(percent);
+            console.log(percent);
             return name + ":" + percent + "%";
           },
         },
@@ -356,7 +337,6 @@ export default {
 
 <style lang="less" scoped>
 .home {
-  margin-top: 12px;
   .user {
     display: flex; // 对user下的所有div子元素进行浮动布局
     align-items: center; // 中心对齐布局

@@ -1,5 +1,5 @@
 <template>
-  <div ref="echarts"></div>
+  <div ref="echart"></div>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
     // 判断是否有x轴。line/bar chart有轴，pie chart无轴
     isAxisChart: {
       type: Boolean,
-      default: true,
+      default: true, // 默认值
     },
     // options里面的参数
     chartData: {
@@ -19,7 +19,7 @@ export default {
       default() {
         return {
           xData: [],
-          series,
+          series: [],
         };
       },
     },
@@ -50,81 +50,85 @@ export default {
     },
     initChartData() {
       // 判断图类型
-      if (isAxisChart) {
-        this.axisOptions.xAxis.data = this.chartData.xData;
-        this.axisOptions.series = this.chartData.series;
+      if (this.isAxisChart) {
+        this.axisOption.xAxis.data = this.chartData.xData;
+        this.axisOption.series = this.chartData.series;
       } else {
         // 饼状图
-        this.pieOptions.series = this.chartData.series;
+        this.pieOption.series = this.chartData.series;
       }
     },
   },
   data() {
     return {
-      axisOptions: {
+      axisOption: {
+        legend: {
+          // 图例文字颜色
+          textStyle: {
+            color: "#333",
+          },
+        },
         title: {
           text: "2019年度手机月销量",
-          // left: "center",
           textStyle: {
             fontWeight: "bold",
             fontSize: 15,
-            // fontFamily: "楷书",
             color: "red",
           },
         },
         tooltip: {
-          trigger: "axis", // axis item none三个值
+          // axis item none三个值
+          trigger: "axis",
+        },
+        grid: {
+          containLabel: true,
         },
         //x轴数据
         xAxis: {
-          data: xAxis_Data,
-          name: "日期", //x轴
+          data: [],
+          type: "category", // 类目轴
+          axisLable: {
+            interval: 0,
+            rotate: 0,
+          },
+          name: "日期",
           nameTextStyle: {
             fontWeight: 600,
             fontSize: 16,
           },
         },
-      },
-      pieOptions: {
-        title: {
-          text: "手机销量占比分析(2019)",
-          textStyle: {
-            color: "red",
-            fontSize: 14,
-          },
-        },
-        series: [
+        // y轴数据，每条折线的名称
+        yAxis: [
           {
-            data: data.videoData,
-            type: "pie",
-            center: ["60%", "50%"], //pie chart的位置信息，第一个：左右。第二个:上下
+            name: "销量",
+            nameTextStyle: {
+              fontWeight: 600,
+              fontSize: 16,
+            },
+            type: "value",
+            axisLine: {
+              lineStyle: {
+                // color: "#17b3a3",
+              },
+            },
           },
         ],
-        legend: {
-          orient: "vertical", //布局horizontal' ¦ 'vertical'
-          x: "-15px", //水平安放位置，默认left
-          y: "center", //垂直安放位置,默认top
-          //把百分比弄出来
-          formatter: function (name) {
-            let data = pieOptions.series[0].data;
-            let total = 0;
-            let value = 0;
-            // let length = data.length;
-            for (let i = 0; i < data.length; i++) {
-              // console.log(data[i].value);
-              total += data[i].value;
-              if (data[i].name == name) {
-                value = data[i].value;
-              }
-            }
-            // console.log(total);
-            let percent = ((value / total) * 100).toFixed(2);
-            console.log(percent);
-            return name + ":" + percent + "%";
-          },
+        series: [],
+      },
+      pieOption: {
+        tooltip: {
+          trigger: "item",
         },
-        //bar/fan一般为item.formatter用来标准化展示内容
-        tooltip: { trigger: "item", formatter: "{b} : {c} ({d}%)" },
+        color: [
+          "#0f78f4",
+          "#dd536b",
+          "#9462e5",
+          "#a6a6a6",
+          "#e1bb22",
+          "#39c362",
+          "#3ed1cf",
+        ],
+        series: [],
       },
       //   用于初始化echart时,判断是否已经渲染
       echart: null,
@@ -133,7 +137,7 @@ export default {
   computed: {
     //   判断是柱状图、折线图还是饼状图
     options() {
-      return this.isAxisChart ? this.axisOptions : this.pieOptions;
+      return this.isAxisChart ? this.axisOption : this.pieOption;
     },
   },
 };

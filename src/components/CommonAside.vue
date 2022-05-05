@@ -25,6 +25,7 @@
         <span slot="title">{{ item.label }}</span>
       </el-menu-item>
 
+      <!-- 有children的 -->
       <!-- 一级菜单----其他  -->
       <el-submenu
         v-for="item in hasChildren"
@@ -40,7 +41,10 @@
           v-for="(subItem, subIndex) in item.children"
           :key="subItem.path"
         >
-          <el-menu-item :index="subIndex + ''">
+          <el-menu-item
+            @click="clickMenu(subItem)"
+            :index="subIndex.toString()"
+          >
             {{ subItem.label }}
           </el-menu-item>
         </el-menu-item-group>
@@ -106,6 +110,28 @@ export default {
             },
           ],
         },
+        //#region
+        // {
+        //   label: "帮助",
+        //   icon: "phone",
+        //   children: [
+        //     {
+        //       path: "/help1",
+        //       name: "help1",
+        //       label: "注意事项",
+        //       icon: "flag",
+        //       url: "Help/Help1",
+        //     },
+        //     {
+        //       path: "/help2",
+        //       name: "help2",
+        //       label: "紧急求助",
+        //       icon: "message-bell",
+        //       url: "Help/Help2",
+        //     },
+        //   ],
+        // },
+        //#endregion
       ],
     };
   },
@@ -121,6 +147,9 @@ export default {
       this.$router.push({
         name: item.name,
       });
+      // 开了namespaced
+      // this.$store.commit("tab/selectMenu", item);
+      this.$store.commit("selectMenu", item);
     },
   },
   computed: {
