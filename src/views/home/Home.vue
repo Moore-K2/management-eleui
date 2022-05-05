@@ -24,7 +24,9 @@
         <!-- 展示表格数据 -->
         <el-card shadow="always" style="margin: 25px 0 10px 0">
           <!-- prop可根据索引/key获取到对应的value值， label代表标签. height=value固定表头,value代表固定高度 -->
-          <el-table :data="tableData" stripe border height="280">
+          <!-- 当el-table元素注入data数组后。在el-table-column用props属性对应对象中的键名即可填入数据 -->
+          <!-- v-for="(value,key) in object" 对于对象来说就是键，对于数组来说就是索引 -->
+          <el-table :data="tableData" stripe="true" border height="390">
             <el-table-column
               v-for="(label, key) in tableLabel"
               :key="key"
@@ -59,12 +61,16 @@
         <div class="lineChart">
           <el-card style="height: 260px">
             <!-- 定义折线图容器 -->
-            <div ref="linechart" style="height: 260px"></div>
+            <div ref="linechart" style="height: 260px; width: auto"></div>
           </el-card>
         </div>
         <div class="bar-fan-chart">
-          <el-card style="height: 180px"></el-card>
-          <el-card style="height: 180px"></el-card>
+          <el-card style="height: 240px">
+            <div ref="barchart" style="height: 220px; width: auto"></div>
+          </el-card>
+          <el-card style="height: 240px">
+            <div ref="piechart" style="height: 220px; width: auto"></div>
+          </el-card>
         </div>
       </el-col>
     </el-row>
@@ -180,29 +186,29 @@ export default {
   },
   mounted() {
     getData().then((res) => {
-      console.log(res);
+      console.log(res.data);
       const { code, data } = res.data; // 对code与data在res的data下面解构
       if (code === 20000) {
         this.tableData = data.tableData;
         // arr：一月份的各个品牌的销量
+        // 一、渲染折线图
         const arr = data.orderData.data;
-        const xAxis_Data = data.orderData.date;
+        const xAxis_Data = data.orderData.date; // 折线图的横坐标
         const keyarray = Object.keys(arr[0]);
         // console.log(keyarray);
-        const series = [];
-        // 1 forEach与map都遍历数组，都有三个参数index, item, arr；this都是指向window，
+        const series_line = [];
+        // forEach与map都遍历数组，都有三个参数index, item, arr；this都是指向window，
         // 2 forEach不能返回数据，不改变数据，map会分配内存空间存储数组并返回
         keyarray.forEach((key) => {
-          series.push({
+          series_line.push({
             name: key,
             type: "line",
             data: arr.map((item) => item[key]),
           });
         });
-        // console.log(series);
-        //1 基于准备好的dom，初始化echart
-        const myChart = echarts.init(this.$refs.linechart);
-        //2 指定图表的配置项和数据
+        // 1 初始化
+        const myLineChart = echarts.init(this.$refs.linechart);
+        // 2 指定折现图表的配置项和数据
         const options = {
           title: {
             text: "2019年度手机月销量",
@@ -223,7 +229,7 @@ export default {
             name: "日期", //x轴
             nameTextStyle: {
               fontWeight: 600,
-              fontSize: 18,
+              fontSize: 16,
             },
           },
           // y轴数据，每条折线的名称
@@ -236,11 +242,94 @@ export default {
           },
           legend: { data: keyarray }, //图例
           //series:数组数据，里面是对象
-          series: series,
+          series: series_line,
+        };
+        // 3 根据数据项与配置渲染图
+        myLineChart.setOption(options);
+        // 二、渲染柱状图
+        const xAxis_bar_data = data.userData.map((item) => item.date);
+        const series_bar = [];
+        const keyarray_bar = ["new", "active"];
+        keyarray_bar.forEach((key) => {
+          series_bar.push({
+            name: key,
+            type: "bar",
+            data: data.userData.map((item) => item[key]), //对应key的数据-数组
+          });
+        });
+        // console.log(series_bar);
+        //1 基于准备好的dom，初始化echart
+        const myBarChart = echarts.init(this.$refs.barchart);
+        // 2 指定柱状图的配置及其数据项
+        const barOptions = {
+          title: {
+            text: "周活跃/新增人数",
+            left: 0,
+            textStyle: {
+              color: "red",
+              fontSize: 14,
+            },
+          },
+          legend: { data: keyarray_bar },
+          xAxis: {
+            data: xAxis_bar_data,
+            type: "category", //类目轴
+          },
+          tooltip: { trigger: "item" },
+          yAxis: { name: "人数" },
+          series: series_bar,
         };
         //3 使用刚指定的数据和配置项显示图
-        myChart.setOption(options);
+        myBarChart.setOption(barOptions);
       }
+      // 三、渲染饼图pie chart
+      // 1 初始化
+      const myPieChart = echarts.init(this.$refs.piechart);
+      // 2 饼图配置与数据项
+      const pieOptions = {
+        // legend: {},
+        title: {
+          text: "手机销量占比分析(2019)",
+          textStyle: {
+            color: "red",
+            fontSize: 14,
+          },
+        },
+        series: [
+          {
+            data: data.videoData,
+            type: "pie",
+            center: ["60%", "50%"], //pie chart的位置信息，第一个：左右。第二个:上下
+          },
+        ],
+        legend: {
+          orient: "vertical", //布局horizontal' ¦ 'vertical'
+          x: "-15px", //水平安放位置，默认left
+          y: "center", //垂直安放位置,默认top
+          //把百分比弄出来
+          formatter: function (name) {
+            let data = pieOptions.series[0].data;
+            let total = 0;
+            let value = 0;
+            // let length = data.length;
+            for (let i = 0; i < data.length; i++) {
+              // console.log(data[i].value);
+              total += data[i].value;
+              if (data[i].name == name) {
+                value = data[i].value;
+              }
+            }
+            // console.log(total);
+            let percent = ((value / total) * 100).toFixed(2);
+            console.log(percent);
+            return name + ":" + percent + "%";
+          },
+        },
+        //bar/fan一般为item.formatter用来标准化展示内容
+        tooltip: { trigger: "item", formatter: "{b} : {c} ({d}%)" },
+      };
+      //3 渲染图
+      myPieChart.setOption(pieOptions);
     });
   },
 };
@@ -249,8 +338,8 @@ export default {
 <style lang="less" scoped>
 .home {
   .user {
-    display: flex;
-    align-items: center;
+    display: flex; // 对user下的所有div子元素进行浮动布局
+    align-items: center; // 中心对齐布局
     padding-bottom: 20px;
     margin-bottom: 20px;
     border-bottom: 1px solid #ccc;
@@ -287,9 +376,10 @@ export default {
     }
     .icon {
       font-size: 32px;
-      width: 60px;
-      height: 60px;
-      line-height: 60px;
+      width: 50px;
+      height: 50px;
+      // 下面两项确认垂直居中
+      line-height: 50px;
       text-align: center;
       color: #fff;
     }
@@ -316,7 +406,7 @@ export default {
     justify-content: space-between;
     .el-card {
       // 设置el-card的宽度
-      width: 48%;
+      width: 49%;
     }
   }
 }

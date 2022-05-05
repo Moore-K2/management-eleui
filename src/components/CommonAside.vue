@@ -149,6 +149,7 @@ export default {
 .el-menu {
   // vh是屏幕视角
   height: 100vh;
+  // height:100%;
   border: none;
   h3 {
     margin-top: 30px;

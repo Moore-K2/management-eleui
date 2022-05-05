@@ -62,8 +62,8 @@
             Bruce: 240
         }]
         console.log(arr)
-        keyarray = Object.keys(arr[0])
-        console.log(keyarray)
+        keyarray = Object.keys(arr[0]) // [苹果,vivo,oppo,魅族,三星]
+            // console.log(keyarray)
             // map()会分配内存空间存储新数组并返回，forEach()不会返回数据。
         keyarray.forEach((key) => {
             data = arr.map(item => item[key])
@@ -79,6 +79,42 @@
         })
         console.log(arr1) // undifine
         console.log(arr2) // [0, 0.5, 1, 1.5, 2]
+            // 柱状图
+        const userData = [{
+            date: '周一',
+            new: 5,
+            active: 200
+        }, {
+            date: '周二',
+            new: 10,
+            active: 500
+        }, {
+            date: '周三',
+            new: 12,
+            active: 550
+        }, {
+            date: '周四',
+            new: 60,
+            active: 800
+        }, {
+            date: '周五',
+            new: 65,
+            active: 550
+        }, {
+            date: '周六',
+            new: 53,
+            active: 770
+        }, {
+            date: '周日',
+            new: 33,
+            active: 170
+        }]
+        arrbar = userData.map(item => {
+            return item.date
+        })
+        console.log(arrbar)
+        keyarray_bar = Object.keys(userData[0])
+        console.log(keyarray_bar)
     </script>
 </body>
 
