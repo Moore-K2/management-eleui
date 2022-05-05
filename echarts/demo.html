@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>ECharts</title>
+    <!-- 引入刚刚下载的 ECharts 文件 -->
+    <script src="echarts.min.js"></script>
+</head>
+
+<body>
+    <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'ECharts 入门示例'
+            },
+            //提示框
+            tooltip: {},
+            // 图例
+            legend: {
+                data: ['销量']
+            },
+            xAxis: {
+                data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+            },
+            yAxis: {},
+            // 当前数据
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        arr = [{
+            moore: 17,
+            Helen: 128,
+            Jack: 119,
+            Bruce: 240
+        }, {
+            moore: 18,
+            Helen: 138,
+            Jack: 129,
+            Bruce: 250
+        }, {
+            moore: 19,
+            Helen: 148,
+            Jack: 139,
+            Bruce: 260
+        }, {
+            moore: 20,
+            Helen: 158,
+            Jack: 149,
+            Bruce: 240
+        }]
+        console.log(arr)
+        keyarray = Object.keys(arr[0]) // [苹果,vivo,oppo,魅族,三星]
+            // console.log(keyarray)
+            // map()会分配内存空间存储新数组并返回，forEach()不会返回数据。
+        keyarray.forEach((key) => {
+            data = arr.map(item => item[key])
+            console.log(data)
+        })
+
+        const arra = [1, 2, 3, 4, 5]
+        arr1 = arra.forEach((index, item, arr) => {
+            return item / 2
+        })
+        arr2 = arra.map((index, item, arr) => {
+            return item / 2
+        })
+        console.log(arr1) // undifine
+        console.log(arr2) // [0, 0.5, 1, 1.5, 2]
+            // 柱状图
+        const userData = [{
+            date: '周一',
+            new: 5,
+            active: 200
+        }, {
+            date: '周二',
+            new: 10,
+            active: 500
+        }, {
+            date: '周三',
+            new: 12,
+            active: 550
+        }, {
+            date: '周四',
+            new: 60,
+            active: 800
+        }, {
+            date: '周五',
+            new: 65,
+            active: 550
+        }, {
+            date: '周六',
+            new: 53,
+            active: 770
+        }, {
+            date: '周日',
+            new: 33,
+            active: 170
+        }]
+        arrbar = userData.map(item => {
+            return item.date
+        })
+        console.log(arrbar)
+        keyarray_bar = Object.keys(userData[0])
+        console.log(keyarray_bar)
+
+        const menu = [{
+            path: "/",
+            name: "home",
+            label: "首页",
+            icon: "s-home",
+            url: "Home/Home",
+        }, {
+            path: "/mall",
+            name: "mall",
+            label: "商品管理",
+            icon: "video-play",
+            url: "MallManage/MallManage",
+        }, {
+            path: "/user",
+            name: "user",
+            label: "用户管理",
+            icon: "user",
+            url: "UserManage/UserManage",
+        }, ]
+        const r = menu.findIndex(item => item.name === "user")
+        console.log(r)
+    </script>
+</body>
+
+</html>

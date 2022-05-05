@@ -2,12 +2,21 @@
   <header>
     <div class="left-content">
       <el-button
-        @click="handelCollapse"
+        @click="handelCollapse()"
         plain
         icon="el-icon-menu"
         size="mini"
       ></el-button>
-      <h3 style="color: #fff">首页</h3>
+      <!-- <h3 style="color: #fff">首页</h3> -->
+      <!-- 面包屑 -->
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item
+          v-for="tab in tabsList"
+          :key="tab.path"
+          :to="{ path: tab.path }"
+          >{{ tab.label }}</el-breadcrumb-item
+        >
+      </el-breadcrumb>
     </div>
     <div class="right-content">
       <el-dropdown trigger="click" szie="mini">
@@ -25,6 +34,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "CommonHeader",
   data() {
@@ -37,6 +48,14 @@ export default {
       //   console.log("切换成功");
       this.$store.commit("HandelCollapse");
     },
+  },
+  computed: {
+    // 若tab开启了namespaced:true,则可以这样使用.但会导致<展开按钮>不能正常使用
+    // ...mapState("tab", ["tabsList"]),
+    ...mapState({ tabsList: (state) => state.tab.tabsList }),
+  },
+  mounted() {
+    console.log(this.tabsList);
   },
 };
 </script>

@@ -1932,6 +1932,14 @@
   "resolved" "https://registry.npmmirror.com/aws4/-/aws4-1.11.0.tgz"
   "version" "1.11.0"
 
+"axios@^0.27.2":
+  "integrity" "sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-0.27.2.tgz"
+  "version" "0.27.2"
+  dependencies:
+    "follow-redirects" "^1.14.9"
+    "form-data" "^4.0.0"
+
 "babel-eslint@^10.1.0":
   "integrity" "sha512-ifWaTHQ0ce+448CYop8AdrQiBsGrnC+bMgfyKFdi6EsPLTAWG+QfyDeM6OH+FmWnKvEq5NnBMLvlBUPKQZoDSg=="
   "resolved" "https://registry.npmmirror.com/babel-eslint/-/babel-eslint-10.1.0.tgz"
@@ -2673,14 +2681,14 @@
     "color-convert" "^1.9.3"
     "color-string" "^1.6.0"
 
-"combined-stream@^1.0.6", "combined-stream@~1.0.6":
+"combined-stream@^1.0.6", "combined-stream@^1.0.8", "combined-stream@~1.0.6":
   "integrity" "sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg=="
   "resolved" "https://registry.npmmirror.com/combined-stream/-/combined-stream-1.0.8.tgz"
   "version" "1.0.8"
   dependencies:
     "delayed-stream" "~1.0.0"
 
-"commander@^2.18.0", "commander@^2.20.0":
+"commander@*", "commander@^2.18.0", "commander@^2.20.0":
   "integrity" "sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ=="
   "resolved" "https://registry.npmmirror.com/commander/-/commander-2.20.3.tgz"
   "version" "2.20.3"
@@ -3459,6 +3467,14 @@
     "jsbn" "~0.1.0"
     "safer-buffer" "^2.1.0"
 
+"echarts@^5.1.2":
+  "integrity" "sha512-okUhO4sw22vwZp+rTPNjd/bvTdpug4K4sHNHyrV8NdAncIX9/AarlolFqtJCAYKGFYhUBNjIWu1EznFrSWTFxg=="
+  "resolved" "https://registry.npmjs.org/echarts/-/echarts-5.1.2.tgz"
+  "version" "5.1.2"
+  dependencies:
+    "tslib" "2.0.3"
+    "zrender" "5.1.1"
+
 "ee-first@1.1.1":
   "integrity" "sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow=="
   "resolved" "https://registry.npmmirror.com/ee-first/-/ee-first-1.1.1.tgz"
@@ -4120,7 +4136,7 @@
     "inherits" "^2.0.3"
     "readable-stream" "^2.3.6"
 
-"follow-redirects@^1.0.0":
+"follow-redirects@^1.0.0", "follow-redirects@^1.14.9":
   "integrity" "sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w=="
   "resolved" "https://registry.npmmirror.com/follow-redirects/-/follow-redirects-1.14.9.tgz"
   "version" "1.14.9"
@@ -4134,6 +4150,15 @@
   "integrity" "sha512-j0KLYPhm6zeac4lz3oJ3o65qvgQCcPubiyotZrXqEaG4hNagNYO8qdlUrX5vwqv9ohqeT/Z3j6+yW067yWWdUw=="
   "resolved" "https://registry.npmmirror.com/forever-agent/-/forever-agent-0.6.1.tgz"
   "version" "0.6.1"
+
+"form-data@^4.0.0":
+  "integrity" "sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww=="
+  "resolved" "https://registry.npmjs.org/form-data/-/form-data-4.0.0.tgz"
+  "version" "4.0.0"
+  dependencies:
+    "asynckit" "^0.4.0"
+    "combined-stream" "^1.0.8"
+    "mime-types" "^2.1.12"
 
 "form-data@~2.3.2":
   "integrity" "sha512-1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ=="
@@ -5780,6 +5805,13 @@
   "version" "0.5.6"
   dependencies:
     "minimist" "^1.2.6"
+
+"mockjs@^1.1.0":
+  "integrity" "sha512-eQsKcWzIaZzEZ07NuEyO4Nw65g0hdWAyurVol1IPl1gahRwY+svqzfgfey8U8dahLwG44d6/RwEzuK52rSa/JQ=="
+  "resolved" "https://registry.npmjs.org/mockjs/-/mockjs-1.1.0.tgz"
+  "version" "1.1.0"
+  dependencies:
+    "commander" "*"
 
 "move-concurrently@^1.0.1":
   "integrity" "sha512-hdrFxZOycD/g6A6SoI2bB5NA/5NEqD0569+S47WZhPvm46sD50ZHdYaFmnua5lndde9rCHGjmfK7Z8BuCt/PcQ=="
@@ -8210,6 +8242,11 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
   "version" "2.4.0"
 
+"tslib@2.0.3":
+  "integrity" "sha512-uZtkfKblCEQtZKBF6EBXVZeQNl82yqtDQdv+eck8u7tdPxjLu2/lp5/uPW+um2tpuxINHWy3GhiccY7QgEaVHQ=="
+  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.0.3.tgz"
+  "version" "2.0.3"
+
 "tty-browserify@0.0.0":
   "integrity" "sha512-JVa5ijo+j/sOoHGjw0sxw734b1LhBkQ3bvUGNdxnVXDCX81Yx7TFgnZygxrIIWn23hbfTaMYLwRmAxFyDuFmIw=="
   "resolved" "https://registry.npmmirror.com/tty-browserify/-/tty-browserify-0.0.0.tgz"
@@ -8924,3 +8961,10 @@
     "is-ci" "^1.0.10"
     "normalize-path" "^1.0.0"
     "strip-indent" "^2.0.0"
+
+"zrender@5.1.1":
+  "integrity" "sha512-oeWlmUZPQdS9f5hK4pV21tHPqA3wgQ7CkKkw7l0CCBgWlJ/FP+lRgLFtUBW6yam4JX8y9CdHJo1o587VVrbcoQ=="
+  "resolved" "https://registry.npmjs.org/zrender/-/zrender-5.1.1.tgz"
+  "version" "5.1.1"
+  dependencies:
+    "tslib" "2.0.3"
