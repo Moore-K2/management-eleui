@@ -63,7 +63,7 @@ export default {
       // 定义接口数组，用于渲染侧边栏
       menu: [
         {
-          path: "/",
+          path: "/home",
           name: "home",
           label: "首页",
           icon: "s-home",

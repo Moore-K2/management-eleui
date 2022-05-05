@@ -7,7 +7,7 @@ export default {
         // 初始面包屑的list,默认为home/首页
         // path是自己定义的，在route-link中引用的！在编程式路由，可以this.$router.push{name:"name"}实现跳转
         tabsList: [{
-            path: '/',
+            path: '/home',
             name: "home",
             label: "首页",
             icon: 's-home',
