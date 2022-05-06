@@ -13,6 +13,8 @@
           <!-- 引入头部CommonHeader（公共）组件 -->
           <CommonHeader></CommonHeader>
         </el-header>
+        <!-- 标签 2-中 -->
+         <CommonTags></CommonTags>
         <!-- 3。主内容区-->
         <el-main>
           <!-- 将子路由组件想展示的页面放入 -->
@@ -26,11 +28,16 @@
 <script>
 import CommonAside from "../components/CommonAside.vue";
 import CommonHeader from "../components/CommonHeader.vue";
+import CommonTags from "../components/CommonTags.vue"
 export default {
-  components: { CommonAside, CommonHeader },
+  components: { CommonAside, CommonHeader, CommonTags },
   name: "Main",
   data() {
     return {};
+  },
+  mounted() {
+    // 获得当前页面路由的名称
+    console.log(this.$route);
   },
 };
 </script>

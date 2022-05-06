@@ -21,7 +21,8 @@ import {
     Table,
     TableColumn,
     Breadcrumb,
-    BreadcrumbItem
+    BreadcrumbItem,
+    Tag,
 
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -56,6 +57,7 @@ Vue.use(Table)
 Vue.use(TableColumn)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
+Vue.use(Tag)
 
 Vue.prototype.$http = http //设置全局变量，这样$http就在所有的Vue实例中可以用。$是避免与已被定义的数据冲突
 

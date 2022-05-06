@@ -9,11 +9,12 @@
       ></el-button>
       <!-- <h3 style="color: #fff">首页</h3> -->
       <!-- 面包屑 -->
-      <el-breadcrumb separator="/">
+      <el-breadcrumb separator=">">
         <el-breadcrumb-item
           v-for="tab in tabsList"
           :key="tab.path"
           :to="{ path: tab.path }"
+          
           >{{ tab.label }}</el-breadcrumb-item
         >
       </el-breadcrumb>
@@ -52,10 +53,11 @@ export default {
   computed: {
     // 若tab开启了namespaced:true,则可以这样使用.但会导致<展开按钮>不能正常使用
     // ...mapState("tab", ["tabsList"]),
+    // tablist别名
     ...mapState({ tabsList: (state) => state.tab.tabsList }),
   },
   mounted() {
-    console.log(this.tabsList);
+    // console.log("***", this.tabsList);
   },
 };
 </script>

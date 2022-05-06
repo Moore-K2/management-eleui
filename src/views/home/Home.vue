@@ -356,7 +356,7 @@ export default {
 
 <style lang="less" scoped>
 .home {
-  margin-top: 12px;
+  // margin-top: 12px;
   .user {
     display: flex; // 对user下的所有div子元素进行浮动布局
     align-items: center; // 中心对齐布局

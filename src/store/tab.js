@@ -34,6 +34,13 @@ export default {
                 // 若点击的菜单是首页.则重置面包屑
                 state.currentmenu = null
             }
+        },
+        // 实现面包屑下面的标签删除
+        closeMenu(state, valTag) {
+            // 找到tag对象所在的索引
+            const index = state.tabsList.findIndex(item => item.name === valTag.name)
+                // 用splice(位置，删除个数)执行删除
+            state.tabsList.splice(index, 1)
         }
 
     }
