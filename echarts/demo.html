@@ -137,6 +137,19 @@
         }, ]
         const r = menu.findIndex(item => item.name === "user")
         console.log(r)
+
+        obj = {
+            name: "Moore",
+            age: 20
+        }
+        options = {
+
+            email: "11@qq.com"
+        }
+        option = {...obj,
+            ...options
+        }
+        console.log(option)
     </script>
 </body>
 

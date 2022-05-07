@@ -14,7 +14,6 @@
           v-for="tab in tabsList"
           :key="tab.path"
           :to="{ path: tab.path }"
-          
           >{{ tab.label }}</el-breadcrumb-item
         >
       </el-breadcrumb>

@@ -1,4 +1,4 @@
-// axios二次封装
+// axios的二次封装，封装成类。 作用：1.处理一些项目相关的配置。
 import axios from "axios"
 import config from "../config"
 
@@ -43,7 +43,8 @@ class HttpRequest {
     }
     request(options) {
         const instance = axios.create() // axios实例创建
-        options = {...this.getInsideConfig(), ...options } // 解构
+            // options：拿到相关配置。解构,后面的参数会覆盖前面对象中的参数，前面有的会存在
+        options = {...this.getInsideConfig(), ...options }
         this.interceptors(instance)
         return instance(options)
     }
