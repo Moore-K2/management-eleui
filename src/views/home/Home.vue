@@ -84,7 +84,7 @@
 
 <script>
 // 引入axios
-import { getData } from "../../../api/data.js";
+import { getData, getUserData } from "../../../api/data.js";
 //引入echarts
 import * as echarts from "echarts";
 // 引入Echarts组件
@@ -200,6 +200,9 @@ export default {
     };
   },
   mounted() {
+    // 获取userData数据
+    getUserData().then((res) => console.log(res.data));
+    // 获取图表数据
     getData().then((res) => {
       console.log(res.data);
       const { code, data } = res.data; // 对code与data在res的data下面解构
