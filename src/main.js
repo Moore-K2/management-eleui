@@ -23,6 +23,16 @@ import {
     Breadcrumb,
     BreadcrumbItem,
     Tag,
+    Form,
+    FormItem,
+    Input,
+    Select,
+    Checkbox,
+    Switch,
+    DatePicker,
+    TimePicker,
+    Dialog,
+    Option
 
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -58,6 +68,16 @@ Vue.use(TableColumn)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
 Vue.use(Tag)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Input)
+Vue.use(Select)
+Vue.use(Checkbox)
+Vue.use(Switch)
+Vue.use(DatePicker)
+Vue.use(TimePicker)
+Vue.use(Dialog)
+Vue.use(Option)
 
 Vue.prototype.$http = http //设置全局变量，这样$http就在所有的Vue实例中可以用。$是避免与已被定义的数据冲突
 
