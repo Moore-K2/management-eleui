@@ -8,14 +8,10 @@
     >
       <el-input
         v-if="item.type === 'input'"
-        :placeholder="'请输入' + item.label"
+        :placeholder="`请输入${item.label}`"
         v-model="form[item.model]"
       ></el-input>
-      <el-switch
-        v-if="item.type === 'switch'"
-        :placeholder="'请输入' + item.label"
-        v-model="form[item.model]"
-      >
+      <el-switch v-if="item.type === 'switch'" v-model="form[item.model]">
       </el-switch>
       <el-date-picker
         v-if="item.type === 'date'"
@@ -27,7 +23,7 @@
       </el-date-picker>
       <el-select
         v-if="item.type === 'select'"
-        placeholder="请输入年龄"
+        :placeholder="`请选择${item.label}`"
         v-model="form[item.model]"
       >
         <el-option

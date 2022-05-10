@@ -1,25 +1,27 @@
 <template>
   <div class="manage">
+    <!-- 在子组件当中修改父组件的某个数据时，建议使用sync -->
     <el-dialog
       :title="operateType === 'add' ? '添加用户' : '编辑用户'"
       :visible.sync="isShow"
     >
-      <!-- 给组件传值 -->
+      <!-- 给table组件传值,样式，数据，是否在一行 -->
       <CommonForm
         :formLabel="operateformLabel"
-        :form="operateform"
+        :form="operateForm"
         :inline="true"
         ref="form"
       ></CommonForm>
       <!-- dialog的底部部分 -->
+      <!-- 加了slot="footer"就可以让两个button在右边 -->
       <div slot="footer" class="dialog-footer">
         <el-button @click="isShow = false">取消</el-button>
-        <el-button type="primary" @click="confirm()">确定</el-button>
+        <el-button type="primary" @click="confirm">确定</el-button>
       </div>
     </el-dialog>
     <!-- header部分 -->
     <div class="manage-header">
-      <el-button type="primary" @click="addUser()">+新增</el-button>
+      <el-button type="primary" @click="addUser">+新增</el-button>
       <!-- 引用CommonForm组件 -->
       <CommonForm
         :formLabel="formLabel"
@@ -27,42 +29,36 @@
         :inline="true"
         ref="form"
       >
-        <el-button type="primary" @click="getList()"
-          >搜索</el-button
-        ></CommonForm
-      >
+        <el-button type="primary" @click="getList()">搜索</el-button>
+      </CommonForm>
     </div>
-    <!-- <h1 style="color: blue">我是User页面</h1> -->
-    <el-row class="user" :gutter="20">
-      <el-col :span="16">
-        <el-card shadow="always" style="margin-top: 40px">
-          <h1 style="text-align: center; margin-bottom: 10px">用户信息</h1>
-          <!-- 展示用户数据 -->
-          <el-table :data="userinfo" stripe border height="500">
-            <el-table-column
-              v-for="(label, key) in userTableLabel"
-              :key="key"
-              :label="label"
-              :prop="key"
-            >
-            </el-table-column>
-          </el-table>
-        </el-card>
-      </el-col>
-    </el-row>
+    <!-- 引用CommonTable组件 -->
+    <!-- 注意这儿 @changePage,@edit="editUser"与@del="delUser"是自定义事件 
+     getlist()右括号是因为要传入参数    -->
+
+    <CommonTable
+      :tableLabel="tableLabel"
+      :tableData="tableData"
+      :config="config"
+      @changePage="getList()"
+      @edit="editUser"
+      @del="delUser"
+    ></CommonTable>
   </div>
 </template>
 
 <script>
-import { getUserData } from "../../../api/data.js";
 import CommonForm from "../../components/CommonForm.vue";
+import CommonTable from "../../components/CommonTable.vue";
 export default {
   name: "User",
-  components: { CommonForm },
+  components: { CommonForm, CommonTable },
   data() {
     return {
       isShow: false,
       operateType: "add",
+      // 传给form组件中的样式，值
+      // form样式
       operateformLabel: [
         { model: "name", label: "姓名", type: "input" },
         { model: "age", label: "年龄", type: "input" },
@@ -76,15 +72,17 @@ export default {
           ],
         },
         { model: "birth", label: "出生日期", type: "date" },
-        { model: "address", label: "地址", type: "input" },
+        { model: "addr", label: "地址", type: "input" },
       ],
-      operateform: {
+      // form中的值
+      operateForm: {
         name: "",
-        address: "",
+        addr: "",
         age: "",
         birth: "",
         sex: "",
       },
+      // 传给form组件中的样式，值
       formLabel: [
         {
           model: "keywords",
@@ -93,44 +91,80 @@ export default {
         },
       ],
       searchForm: { keyword: "" },
-      // 自己搞得数据
-      userTableLabel: {
-        name: "姓名",
-        idCard: "编号信息",
-        birthOfDate: "出生日期",
-        address: "现居住址",
+      // 传给table组件中的样式，值
+      tableData: [],
+      tableLabel: [
+        {
+          prop: "name",
+          label: "姓名",
+        },
+        {
+          prop: "age",
+          label: "年龄",
+        },
+        {
+          //性别用的value 0/1 表示男/女。需要注意
+          prop: "sexLabel",
+          label: "性别",
+        },
+        {
+          prop: "birth",
+          label: "出生日期",
+          width: 200,
+        },
+        {
+          prop: "addr",
+          label: "地址",
+          width: 320,
+        },
+      ],
+      // 传入配置，涉及到pagination的
+      config: {
+        page: 1,
+        total: 30,
       },
-      userinfo: [],
     };
   },
   methods: {
-    confirm() {},
+    confirm() {
+      if (this.operateType === "edit") {
+        this.$http.post("user/edit", this.operateForm).then((res) => {
+          // 打印结果
+          // 关闭dialog
+          //this.getList()
+          console.log(res);
+          this.isShow = false;
+        });
+      } else {
+        // console.log(this.operateType);
+        this.$http.post("user/add", this.operateForm).then((res) => {
+          console.log("###", res);
+          this.isShow = false;
+          //this.getList()
+        });
+      }
+    },
     addUser() {
       this.isShow = true;
       this.operateType = "add";
+      // 将数据初始化
       this.operateForm = {
         name: "",
-        address: "",
+        addr: "",
         age: "",
         birth: "",
         sex: "",
       };
     },
+    editUser() {},
+    delUser() {},
     getList() {},
   },
   mounted() {
-    getUserData().then((res) => {
-      console.log(res.data);
-      const { code, userdata } = res.data;
-      if (code === 20001) {
-        this.userinfo = userdata.userinfo;
-        // console.log(this.userinfo);
-      }
-    });
+    // console.log(this.$http);
   },
 };
 </script>
-
 <style lang="less" scoped>
 .manage {
   margin-top: 20px;
