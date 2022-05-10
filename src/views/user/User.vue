@@ -29,7 +29,9 @@
         :inline="true"
         ref="form"
       >
-        <el-button type="primary" @click="getList()">搜索</el-button>
+        <el-button type="primary" @click="getList(searchForm.keyword)">
+          搜索
+        </el-button>
       </CommonForm>
     </div>
     <!-- 引用CommonTable组件 -->
@@ -85,7 +87,7 @@ export default {
       // 传给form组件中的样式，值
       formLabel: [
         {
-          model: "keywords",
+          model: "keyword",
           label: "",
           type: "input",
         },
