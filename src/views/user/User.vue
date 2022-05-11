@@ -16,12 +16,12 @@
       <!-- 加了slot="footer"就可以让两个button在右边 -->
       <div slot="footer" class="dialog-footer">
         <el-button @click="isShow = false">取消</el-button>
-        <el-button type="primary" @click="confirm">确定</el-button>
+        <el-button type="primary" @click="confirm()">确定</el-button>
       </div>
     </el-dialog>
     <!-- header部分 -->
     <div class="manage-header">
-      <el-button type="primary" @click="addUser">+新增</el-button>
+      <el-button type="primary" @click="addUser()">+新增</el-button>
       <!-- 引用CommonForm组件 -->
       <CommonForm
         :formLabel="formLabel"
@@ -29,7 +29,9 @@
         :inline="true"
         ref="form"
       >
-        <el-button type="primary" @click="getList()">搜索</el-button>
+        <el-button type="primary" @click="getList(searchForm.keyword)"
+          >搜索</el-button
+        >
       </CommonForm>
     </div>
     <!-- 引用CommonTable组件 -->
@@ -50,6 +52,7 @@
 <script>
 import CommonForm from "../../components/CommonForm.vue";
 import CommonTable from "../../components/CommonTable.vue";
+import { getUser } from "../../../api/data.js";
 export default {
   name: "User",
   components: { CommonForm, CommonTable },
@@ -131,16 +134,16 @@ export default {
         this.$http.post("user/edit", this.operateForm).then((res) => {
           // 打印结果
           // 关闭dialog
-          //this.getList()
           console.log(res);
           this.isShow = false;
+          this.getList();
         });
       } else {
         // console.log(this.operateType);
         this.$http.post("user/add", this.operateForm).then((res) => {
           console.log("###", res);
           this.isShow = false;
-          //this.getList()
+          this.getList();
         });
       }
     },
@@ -156,12 +159,61 @@ export default {
         sex: "",
       };
     },
-    editUser() {},
-    delUser() {},
-    getList() {},
+    editUser(row) {
+      this.isShow = true;
+      this.operateType = "edit";
+      console.log(row);
+      this.operateForm = row;
+    },
+    delUser(row) {
+      this.$confirm("此操作将永久删除此组件，是否继续？", "提示", {
+        confirmButtonText: "确认",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        const id = row.id;
+        this.$http
+          .post("/user/del", {
+            id: id,
+          })
+          .then((res) => {
+            console.log(res);
+            this.$message({
+              type: "success",
+              message: "删除成功",
+            });
+            this.getList();
+          });
+      });
+    },
+    getList(name = "") {
+      this.config.loading = true;
+      name ? (this.config.page = 1) : "";
+      getUser({
+        page: this.config.page,
+        name,
+      }).then(({ data: res }) => {
+        // 给tableData赋值
+        this.tableData = res.list.map((item) => {
+          item.sexLabel = item.sex === 0 ? "女" : "男";
+          return item;
+        });
+        // 获取当前数据的条目，count在user.js中定义了
+        this.config.total = res.count;
+        this.config.loading = true;
+      });
+    },
+  },
+  created() {
+    // 与mounted区别就是，created是在模板渲染成Html前调用
+    this.getList();
   },
   mounted() {
     // console.log(this.$http);
+    // console.log(this.config);
+    // getUser().then((res) => {
+    //   console.log("@@@", res.data);
+    // });
   },
 };
 </script>

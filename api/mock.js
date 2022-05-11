@@ -14,6 +14,11 @@ Mock.mock('./userInfo/getUserData', 'get', mallApi.getUserInfo)
 
 // 对mockServerDara中的user数据进行拦截
 // 用Mock.mock的第二种方式，Mock.mock（正则匹配，方法，回调函数）
+// Mock.mock('user/add', 'post', userApi.createUser)
 Mock.mock(/user\/add/, 'post', userApi.createUser)
-    // Mock.mock('user/add', 'post', userApi.createUser)
 Mock.mock(/user\/edit/, 'post', userApi.updateUser)
+
+// 拦截mock生成的用户数据列表.url要与data.js接口中的url保持一致
+Mock.mock(/user\/getUser/, 'get', userApi.getUserList)
+    // 下面的会报错
+    // Mock.mock('/user/getUser', 'get', userApi.getUserList)

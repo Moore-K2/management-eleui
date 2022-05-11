@@ -1,6 +1,6 @@
 <template>
-  <div class="table">
-    <el-table :data="tableData" height="90%" stripe>
+  <div class="common-table">
+    <el-table :data="tableData" height="420" stripe>
       <!-- 当内容过长被隐藏时显示 tooltip -->
       <el-table-column
         show-overflow-tooltip
@@ -63,8 +63,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.table {
-  height: calc(100% -70px);
+.common-table {
+  height: calc(100% -60px);
   background-color: white;
   position: relative;
   .pager {

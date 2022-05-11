@@ -59,8 +59,6 @@ export default {
      * @return {{code: number, data: {message: string}}}
      */
     createUser: config => {
-        // json.parse()将json字符串解析成对象
-        // console.log(config.body)
         const { name, addr, age, birth, sex } = JSON.parse(config.body)
         console.log(JSON.parse(config.body))
         List.unshift({
@@ -79,7 +77,6 @@ export default {
         }
     },
     /**
-     * @param就是对下面函数的参数做一个解释，对参数类型做一个说明。
      * 删除用户
      * @param id
      * @return {*}
@@ -123,8 +120,6 @@ export default {
     updateUser: config => {
         const { id, name, addr, age, birth, sex } = JSON.parse(config.body)
         const sex_num = parseInt(sex)
-            // some()方法会依次执行数组的每个元素；如果有一个元素满足条件，
-            // 则表达式返回true，剩余的元素不会再执行检测
         List.some(u => {
             if (u.id === id) {
                 u.name = name

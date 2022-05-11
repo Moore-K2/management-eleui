@@ -23,3 +23,13 @@ export const getUserData = () => {
         method: "get"
     })
 }
+
+//借助二次封装的axios进行接口请求的编写
+
+export const getUser = (params) => {
+    return axios.request({
+        url: '/user/getUser',
+        method: 'get',
+        params
+    })
+}
