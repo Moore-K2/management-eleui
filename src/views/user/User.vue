@@ -36,7 +36,6 @@
         <el-button type="primary" @click="getList(searchForm.keyword)">
           搜索
         </el-button>
-        >>>>>>> 1f8fe81afde7bea4c6b49349aef91dd61a6c14a7
       </CommonForm>
     </div>
     <!-- 引用CommonTable组件 -->
@@ -136,14 +135,18 @@ export default {
   methods: {
     confirm() {
       if (this.operateType === "edit") {
-        this.$http.post("user/edit", this.operateForm).then((res) => {
-          // 打印结果
+        this.$http.post("user/edit", this.operateForm).then(() => {
           // 关闭dialog
-          console.log(res);
+          console.log("!!", this.operateForm);
+          this.$message({
+            message: "牛的，操作成功！",
+            type: "success",
+          });
           this.isShow = false;
           this.getList();
         });
       } else {
+        // add方法
         // console.log(this.operateType);
         this.$http.post("user/add", this.operateForm).then((res) => {
           console.log("###", res);
@@ -164,6 +167,7 @@ export default {
         sex: "",
       };
     },
+    // 绑定edit自定义事，通过执行回调函数，获取子组件传递的data
     editUser(row) {
       this.isShow = true;
       this.operateType = "edit";
@@ -171,24 +175,20 @@ export default {
       this.operateForm = row;
     },
     delUser(row) {
-      this.$confirm("此操作将永久删除此组件，是否继续？", "提示", {
+      this.$confirm("此操作将永久删除此item条目，是否继续？", "提示", {
         confirmButtonText: "确认",
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
         const id = row.id;
-        this.$http
-          .post("/user/del", {
-            id: id,
-          })
-          .then((res) => {
-            console.log(res);
-            this.$message({
-              type: "success",
-              message: "删除成功",
-            });
-            this.getList();
+        this.$http.post("/user/del", { id: id }).then((res) => {
+          console.log("删除：", res);
+          this.$message({
+            type: "success",
+            message: "删除成功",
           });
+          this.getList();
+        });
       });
     },
     getList(name = "") {
@@ -197,15 +197,17 @@ export default {
       getUser({
         page: this.config.page,
         name,
+        // 将dara结构出来，命名为res
       }).then(({ data: res }) => {
         // 给tableData赋值
         this.tableData = res.list.map((item) => {
+          // 根据数组随机生成的0/1来给数组添加属性sexLabel
           item.sexLabel = item.sex === 0 ? "女" : "男";
           return item;
         });
         // 获取当前数据的条目，count在user.js中定义了
         this.config.total = res.count;
-        this.config.loading = true;
+        this.config.loading = false;
       });
     },
   },

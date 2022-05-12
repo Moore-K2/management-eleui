@@ -1,4 +1,7 @@
 import Mock from 'mockjs'
+// 用了elementui的Message
+import { Message } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 // get请求从config.url获取参数，post从config.body中获取参数
 function param2Obj(url) {
@@ -61,20 +64,29 @@ export default {
     createUser: config => {
         const { name, addr, age, birth, sex } = JSON.parse(config.body)
         console.log(JSON.parse(config.body))
-        List.unshift({
-            id: Mock.Random.guid(),
-            name: name,
-            addr: addr,
-            age: age,
-            birth: birth,
-            sex: sex
-        })
-        return {
-            code: 20000,
-            data: {
-                message: '添加成功'
+            // 判断是否输入了值
+        if (name) {
+            List.unshift({
+                id: Mock.Random.guid(),
+                name: name,
+                addr: addr,
+                age: age,
+                birth: birth,
+                sex: sex
+            })
+            return {
+                code: 20000,
+                data: {
+                    message: '添加成功'
+                }
             }
+        } else {
+            Message({
+                message: "法克，您好像没什么可以提交的？",
+                type: 'warning'
+            })
         }
+
     },
     /**
      * 删除用户
@@ -82,14 +94,17 @@ export default {
      * @return {*}
      */
     deleteUser: config => {
+        // console.log("config是：", config)
+        // console.log("body是：", config.body)
         const { id } = JSON.parse(config.body)
+            // console.log("@", id)
         if (!id) {
             return {
                 code: -999,
                 message: '参数不正确'
             }
         } else {
-            List = List.filter(u => u.id !== id)
+            List = List.filter(item => item.id !== id)
             return {
                 code: 20000,
                 message: '删除成功'

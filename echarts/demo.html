@@ -150,6 +150,32 @@
             ...options
         }
         console.log(option)
+
+        var pattern = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/g;
+        str = '1104365@qq.com';
+        console.log(pattern.test(str));
+
+
+        const moore = {
+            data: {
+                arr: [1, 2, 3, 4],
+                name: 'Moore'
+            },
+            shuai: function() {
+                console.log('是大帅')
+            },
+            xiaoshuai: function() {
+                console.log('我是小帅')
+            }
+        }
+        let {
+            data: res, //将data结构处来，命名为res
+            shuai,
+            xiaoshuai
+        } = moore
+        shuai();
+        xiaoshuai();
+        console.log(res);
     </script>
 </body>
 

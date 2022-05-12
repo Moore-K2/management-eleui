@@ -19,6 +19,7 @@ Mock.mock(/user\/add/, 'post', userApi.createUser)
 Mock.mock(/user\/edit/, 'post', userApi.updateUser)
 
 // 拦截mock生成的用户数据列表.url要与data.js接口中的url保持一致
+Mock.mock("/user/del", 'post', userApi.deleteUser)
 Mock.mock(/user\/getUser/, 'get', userApi.getUserList)
     // 下面的会报错
     // Mock.mock('/user/getUser', 'get', userApi.getUserList)

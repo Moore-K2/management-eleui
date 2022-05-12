@@ -1,6 +1,6 @@
 <template>
   <div class="common-table">
-    <el-table :data="tableData" height="420" stripe>
+    <el-table :data="tableData" height="90%" stripe>
       <!-- 当内容过长被隐藏时显示 tooltip -->
       <el-table-column
         show-overflow-tooltip
@@ -12,11 +12,13 @@
         <!-- 渲染传进来的数据，tableData是给到table的记录集，scope是table内部基于tableData生成出来的 
     通过scope.row.date，我们就可以读取到每一行中的date-->
         <template slot-scope="scope">
+          <!-- 渲染每个item的值prop到一行中 -->
           <span style="margin-left: 10px">{{ scope.row[item.prop] }}</span>
         </template>
       </el-table-column>
       <!-- 定义操作 列 -->
       <el-table-column label="操作" min-width="200">
+        <!-- 注意！！通过下列可以获取到这一行的数据信息 -->
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button size="mini" @click="handleDelete(scope.row)" type="danger"
@@ -48,6 +50,7 @@ export default {
   methods: {
     handleEdit(row) {
       // 触发父组件的自定义事件：edit，将row传入父组件
+      // console.log("!!!", row);
       this.$emit("edit", row);
     },
     handleDelete(row) {
@@ -64,7 +67,8 @@ export default {
 
 <style lang="less" scoped>
 .common-table {
-  height: calc(100% -60px);
+  // 注意calc函数中间一定要有空格
+  height: calc(100% - 60px);
   background-color: white;
   position: relative;
   .pager {
