@@ -34,7 +34,6 @@ import {
     Dialog,
     Option,
     Pagination,
-    MessageBox
 
 
 } from 'element-ui';
@@ -84,7 +83,7 @@ Vue.use(Option)
 Vue.use(Pagination)
 
 Vue.prototype.$http = http //设置全局变量，这样$http就在所有的Vue实例中可以用。$是避免与已被定义的数据冲突
-Vue.prototype.$confirm = confirm
+    // Vue.prototype.$confirm = confirm
 new Vue({
     render: h => h(App),
     router,
