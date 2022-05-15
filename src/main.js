@@ -35,7 +35,8 @@ import {
     Option,
     Pagination,
     MessageBox,
-    Message
+    Message,
+    Footer
 
 
 } from 'element-ui';
@@ -83,6 +84,7 @@ Vue.use(TimePicker)
 Vue.use(Dialog)
 Vue.use(Option)
 Vue.use(Pagination)
+Vue.use(Footer)
 
 Vue.prototype.$http = http //设置全局变量，这样$http就在所有的Vue实例中可以用。$是避免与已被定义的数据冲突
 Vue.prototype.$confirm = MessageBox.confirm // 绑定messagebox的confirm到全局上

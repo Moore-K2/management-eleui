@@ -14,12 +14,16 @@
           <CommonHeader></CommonHeader>
         </el-header>
         <!-- 标签 2-中 -->
-         <CommonTags></CommonTags>
+        <CommonTags></CommonTags>
         <!-- 3。主内容区-->
         <el-main>
           <!-- 将子路由组件想展示的页面放入 -->
           <router-view></router-view>
         </el-main>
+        <!-- 4. 未来整一个footer -->
+        <el-footer style="font-size: 30px; color: blue; text-align: center"
+          >I am Footer</el-footer
+        >
       </el-container>
     </el-container>
   </div>
@@ -28,7 +32,7 @@
 <script>
 import CommonAside from "../components/CommonAside.vue";
 import CommonHeader from "../components/CommonHeader.vue";
-import CommonTags from "../components/CommonTags.vue"
+import CommonTags from "../components/CommonTags.vue";
 export default {
   components: { CommonAside, CommonHeader, CommonTags },
   name: "Main",
@@ -37,7 +41,7 @@ export default {
   },
   mounted() {
     // 获得当前页面路由的名称
-    console.log(this.$route);
+    // console.log(this.$route);
   },
 };
 </script>
