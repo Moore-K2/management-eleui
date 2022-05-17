@@ -2,6 +2,7 @@ import Mock from "mockjs"
 import homeApi from './mockServerData/home'
 import mallApi from "./mockServerData/userInfo"
 import userApi from "./mockServerData/user"
+import permissionApi from './mockServerData/permission'
 
 
 // Mock.mock( rurl?, rtype?, template|function( options ) )
@@ -21,5 +22,10 @@ Mock.mock(/user\/edit/, 'post', userApi.updateUser)
 // 拦截mock生成的用户数据列表.url要与data.js接口中的url保持一致
 Mock.mock("/user/del", 'post', userApi.deleteUser)
 Mock.mock(/user\/getUser/, 'get', userApi.getUserList)
-    // 下面的会报错
-    // Mock.mock('/user/getUser', 'get', userApi.getUserList)
+
+// 下面的会报错
+// Mock.mock('/user/getUser', 'get', userApi.getUserList)
+
+// 拦截permission的数据
+// Mock.mock('/permission/getMenu', 'post', permissionApi.getMenu)
+Mock.mock(/permission\/getMenu/, 'post', permissionApi.getMenu)

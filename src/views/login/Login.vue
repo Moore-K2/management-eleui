@@ -45,12 +45,15 @@
   </el-form>
 </template>
 
+
 <script>
+// import Mock from "mockjs";
+import { getMenu } from "../../../api/data.js";
 export default {
   name: "Login",
   data() {
     return {
-      form: {},
+      form: { username: "admin", password: "admin" },
       rules: {
         username: [
           { required: true, message: "用户名不能为空！", trigger: "blur" },
@@ -66,7 +69,30 @@ export default {
       },
     };
   },
-  methods: {},
+  methods: {
+    login() {
+      getMenu(this.form).then(({ data: res }) => {
+        if (res.code === 20000) {
+          console.log("成功进入");
+          this.$store.commit("clearMenu");
+          this.$store.commit("setMenu", res.data.menu);
+          this.$store.commit("setToken", res.data.token);
+          this.$store.commit("addMenu", this.$router);
+          this.$router.push({ name: "home" });
+        } else {
+          this.$message.warning(res.data.message);
+        }
+      });
+      // const token = Mock.Random.guid(); // 生成随机数
+      // this.$store.commit("setToken", token); // 将token存入vuex
+      // this.$router.push({ name: "home" }); // 跳转
+    },
+  },
+  mounted() {
+    // getMenu(this.form).then((res) => {
+    //   console.log(res);
+    // });
+  },
 };
 </script>
 

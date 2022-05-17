@@ -89,8 +89,31 @@ Vue.use(Footer)
 Vue.prototype.$http = http //设置全局变量，这样$http就在所有的Vue实例中可以用。$是避免与已被定义的数据冲突
 Vue.prototype.$confirm = MessageBox.confirm // 绑定messagebox的confirm到全局上
 Vue.prototype.$message = Message // 绑定message到全局上
+
+// 设置全局导航守卫---初始化时执行、每次路由切换前执行
+router.beforeEach((to, from, next) => {
+    // 拿到token,防止token丢失
+    store.commit('getToken')
+    const token = store.state.user.token
+        // 若token不存在且当前页面不是登录页，则跳转到登录页。否则放行
+    if (!token && to.name !== 'login') {
+        next({ name: 'login' }) // 返回到登录页
+    } else if (token && to.name === 'login') {
+        next({
+            name: 'home'
+        })
+    } else {
+        // 登陆成功则放行
+        next()
+    }
+})
+
 new Vue({
     render: h => h(App),
     router,
-    store
+    store,
+    // 防止刷新白屏
+    created() {
+        store.commit('addMenu', router)
+    }
 }).$mount('#app')

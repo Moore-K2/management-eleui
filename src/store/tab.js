@@ -1,3 +1,4 @@
+import Cookie from 'js-cookie'
 export default {
     // 开启命名空间，便于使用...mapState等
     // namespaced: true,
@@ -12,8 +13,11 @@ export default {
             label: "首页",
             icon: 's-home',
         }],
-        //高亮所处的当前菜单
-        currentmenu: null
+        //高亮所处 的当前菜单
+        currentmenu: null,
+
+        // 权限管理
+        menu: []
     },
     actions: {},
     mutations: {
@@ -41,8 +45,45 @@ export default {
             const index = state.tabsList.findIndex(item => item.name === valTag.name)
                 // 用splice(位置，删除个数)执行删除
             state.tabsList.splice(index, 1)
+        },
+
+        setMenu(state, val) {
+            state.menu = val
+            Cookie.set('menu', JSON.stringify(val))
+        },
+        clearMenu(state) {
+            state.menu = []
+            Cookie.remove('menu')
+        },
+        addMenu(state, router) {
+            if (!Cookie.get('menu')) {
+                return
+            }
+            const menu = JSON.parse(Cookie.get('menu'))
+            state.menu = menu
+                // 数据进行处理
+            const menuArray = []
+                // 此时拿到的menu是permission下的menu
+            menu.forEach(item => {
+                if (item.children) {
+                    // 给item添加数据
+                    item.children = item.children.map(item => {
+                            item.component = () =>
+                                import (`../views/${item.url}`)
+                            return item
+                        })
+                        // 将二维数组扁平化
+                    menuArray.push(...item.children)
+                } else {
+                    item.component = () =>
+                        import (`../views/${item.url}`)
+                    menuArray.push(item)
+                }
+            });
+            // 路由的动态添加
+            menuArray.forEach(item => {
+                router.addRoute('Main', item)
+            })
         }
-
     }
-
 }

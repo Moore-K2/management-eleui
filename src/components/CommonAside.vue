@@ -61,78 +61,79 @@ export default {
       // 是否折叠
       // isCollapse: true,
       // 定义接口数组，用于渲染侧边栏
-      menu: [
-        {
-          path: "/home",
-          name: "home",
-          label: "首页",
-          icon: "s-home",
-          url: "Home/Home",
-        },
-        {
-          path: "/mall",
-          name: "mall",
-          label: "商品管理",
-          icon: "video-play",
-          url: "MallManage/MallManage",
-        },
-        {
-          path: "/user",
-          name: "user",
-          label: "用户管理",
-          icon: "user",
-          url: "UserManage/UserManage",
-        },
-        {
-          label: "其他",
-          icon: "location",
-          children: [
-            {
-              path: "/page1",
-              name: "page1",
-              label: "页面1",
-              icon: "setting",
-              url: "Other/PageOne",
-            },
-            {
-              path: "/page2",
-              name: "page2",
-              label: "页面2",
-              icon: "setting",
-              url: "Other/PageTwo",
-            },
-            {
-              path: "/page3",
-              name: "page3",
-              label: "页面3",
-              icon: "setting",
-              url: "Other/PageThree",
-            },
-          ],
-        },
-        //#region
-        // {
-        //   label: "帮助",
-        //   icon: "phone",
-        //   children: [
-        //     {
-        //       path: "/help1",
-        //       name: "help1",
-        //       label: "注意事项",
-        //       icon: "flag",
-        //       url: "Help/Help1",
-        //     },
-        //     {
-        //       path: "/help2",
-        //       name: "help2",
-        //       label: "紧急求助",
-        //       icon: "message-bell",
-        //       url: "Help/Help2",
-        //     },
-        //   ],
-        // },
-        //#endregion
-      ],
+      // menu: [
+      //   {
+      //     path: "/home",
+      //     name: "home",
+      //     label: "首页",
+      //     icon: "s-home",
+      //     url: "Home/Home",
+      //   },
+      //   {
+      //     path: "/mall",
+      //     name: "mall",
+      //     label: "商品管理",
+      //     icon: "video-play",
+      //     url: "MallManage/MallManage",
+      //   },
+      //   {
+      //     path: "/user",
+      //     name: "user",
+      //     label: "用户管理",
+      //     icon: "user",
+      //     url: "UserManage/UserManage",
+      //   },
+      //   {
+      //     label: "其他",
+      //     icon: "location",
+      //     children: [
+      //       {
+      //         path: "/page1",
+      //         name: "page1",
+      //         label: "页面1",
+      //         icon: "setting",
+      //         url: "Other/PageOne",
+      //       },
+      //       {
+      //         path: "/page2",
+      //         name: "page2",
+      //         label: "页面2",
+      //         icon: "setting",
+      //         url: "Other/PageTwo",
+      //       },
+      //       {
+      //         path: "/page3",
+      //         name: "page3",
+      //         label: "页面3",
+      //         icon: "setting",
+      //         url: "Other/PageThree",
+      //       },
+      //     ],
+      //   },
+      //   //#region
+      //   // {
+      //   //   label: "帮助",
+      //   //   icon: "phone",
+      //   //   children: [
+      //   //     {
+      //   //       path: "/help1",
+      //   //       name: "help1",
+      //   //       label: "注意事项",
+      //   //       icon: "flag",
+      //   //       url: "Help/Help1",
+      //   //     },
+      //   //     {
+      //   //       path: "/help2",
+      //   //       name: "help2",
+      //   //       label: "紧急求助",
+      //   //       icon: "message-bell",
+      //   //       url: "Help/Help2",
+      //   //     },
+      //   //   ],
+      //   // },
+      //   //#endregion
+      // ],
+      menu: [],
     };
   },
   methods: {
@@ -155,17 +156,26 @@ export default {
   computed: {
     noChildren() {
       //返回Menu数组中没有chirldren属性的对象
-      return this.menu.filter((item) => !item.children);
+      // return this.menu.filter((item) => !item.children);
+      return this.asyncMenu.filter((item) => !item.children);
     },
     hasChildren() {
       //返回menu数组中有chirldren属性的对象
-      return this.menu.filter((item) => item.children);
+      // return this.menu.filter((item) => item.children);
+      return this.asyncMenu.filter((item) => item.children);
     },
     // use vuex and $store to obtain data[isCollapse]
     isCollapse() {
       // console.log(this.$store.state);
       return this.$store.state.tab.isCollapse;
     },
+    // 获取menu
+    asyncMenu() {
+      return this.$store.state.tab.menu;
+    },
+  },
+  mounted() {
+    console.log("@@", this.$store.state.tab.menu);
   },
 };
 </script>

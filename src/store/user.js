@@ -10,14 +10,14 @@ export default {
     mutations: {
         setToken(state, val) {
             state.token = val
-            Cookies.set('token', val)
+            Cookies.set('token', val) // 将token进行缓存
         },
         clearToken(state) {
-            state.token = '' // 为什么要这一行？？？
+            state.token = '' // 为什么要这一行？？？ 清空token值
             Cookies.remove('token')
         },
         getToken(state) {
-            // 若当前缓存有token,则直接获取。若没有则从state中获取
+            // 若当前缓存有token,则直接获取。若没有则从state中获取|
             state.token = state.token || Cookies.get('token')
         }
     }
