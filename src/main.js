@@ -97,14 +97,16 @@ router.beforeEach((to, from, next) => {
     const token = store.state.user.token
         // 若token不存在且当前页面不是登录页，则跳转到登录页。否则放行
     if (!token && to.name !== 'login') {
+        console.log('您没有登陆,没有产生token,所以我在实例生成前把你拦截了!')
         next({ name: 'login' }) // 返回到登录页
+        document.title = to.meta.title
     } else if (token && to.name === 'login') {
-        next({
-            name: 'home'
-        })
+        next({ name: 'home' })
+        document.title = to.meta.title
     } else {
         // 登陆成功则放行
         next()
+        document.title = to.meta.title
     }
 })
 

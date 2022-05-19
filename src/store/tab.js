@@ -1,4 +1,4 @@
-import Cookie from 'js-cookie'
+// import Cookie from 'js-cookie'
 export default {
     // 开启命名空间，便于使用...mapState等
     // namespaced: true,
@@ -48,18 +48,25 @@ export default {
         },
 
         setMenu(state, val) {
+            // 从permission种获取menu
             state.menu = val
-            Cookie.set('menu', JSON.stringify(val))
+                // 将获取到的menu以字符串形式存入Cookie
+                // Cookie.set('menu', JSON.stringify(val))
+            localStorage.setItem('menu', JSON.stringify(val))
         },
         clearMenu(state) {
             state.menu = []
-            Cookie.remove('menu')
+                // Cookie.remove('menu')
+            localStorage.removeItem('menu')
         },
         addMenu(state, router) {
-            if (!Cookie.get('menu')) {
+            // if (!Cookie.get('menu')) {
+            if (!localStorage.getItem('menu')) {
                 return
             }
-            const menu = JSON.parse(Cookie.get('menu'))
+            //从Cookie中获取到menu，并解析为对象
+            // const menu = JSON.parse(Cookie.get('menu'))
+            const menu = JSON.parse(localStorage.getItem('menu'))
             state.menu = menu
                 // 数据进行处理
             const menuArray = []
@@ -68,11 +75,12 @@ export default {
                 if (item.children) {
                     // 给item添加数据
                     item.children = item.children.map(item => {
+                            // 给menu添加组件，完成按需引入
                             item.component = () =>
                                 import (`../views/${item.url}`)
                             return item
                         })
-                        // 将二维数组扁平化
+                        // 将二维数组扁平化。本来是数组中夹数组，扁平化为一个数组
                     menuArray.push(...item.children)
                 } else {
                     item.component = () =>

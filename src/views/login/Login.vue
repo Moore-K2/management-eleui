@@ -12,12 +12,7 @@
   >
     <h3 style="text-align: center; margin: 5px auto 30px auto">摩尔の庄园</h3>
     <!-- 用户名 -->
-    <el-form-item
-      label="用户名"
-      label-width="80px"
-      prop="username"
-      class="username"
-    >
+    <el-form-item label="用户名" label-width="80px" prop="username">
       <el-input
         type="input"
         v-model="form.username"
@@ -53,7 +48,7 @@ export default {
   name: "Login",
   data() {
     return {
-      form: { username: "admin", password: "admin" },
+      form: { username: "", password: "" },
       rules: {
         username: [
           { required: true, message: "用户名不能为空！", trigger: "blur" },
@@ -73,9 +68,10 @@ export default {
     login() {
       getMenu(this.form).then(({ data: res }) => {
         if (res.code === 20000) {
-          console.log("成功进入");
+          console.log("成功进入", res.data.token);
           this.$store.commit("clearMenu");
           this.$store.commit("setMenu", res.data.menu);
+          // 确保没登录前不能进入我们的主页
           this.$store.commit("setToken", res.data.token);
           this.$store.commit("addMenu", this.$router);
           this.$router.push({ name: "home" });
@@ -101,7 +97,7 @@ export default {
   width: 400px;
   margin: 150px auto;
   box-shadow: 0 0 25px #cac6c6;
-  background-clip: padding-box;
+  // background-clip: padding-box;
   border-radius: 10px;
   padding: 35px 35px 25px 35px;
   background-color: #fff;

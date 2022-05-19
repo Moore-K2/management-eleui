@@ -15,6 +15,7 @@ export default {
                             name: 'home',
                             label: '首页',
                             icon: 's-home',
+                            meta: { title: '首页' },
                             url: 'home/Home.vue'
                         },
                         {
@@ -22,6 +23,7 @@ export default {
                             name: 'mall',
                             label: '商品管理',
                             icon: 'video-play',
+                            meta: { title: '商品管理' },
                             url: 'mall/Mall.vue'
                         },
                         {
@@ -29,17 +31,20 @@ export default {
                             name: 'user',
                             label: '用户管理',
                             icon: 'user',
+                            meta: { title: '用户管理' },
                             url: 'user/User.vue'
                         },
                         {
                             label: '其他',
                             name: 'other',
                             icon: 'location',
+                            meta: { title: '其他' },
                             children: [{
                                     path: '/page1',
                                     name: 'page1',
                                     label: '页面1',
                                     icon: 'setting',
+                                    meta: { title: '摩尔' },
                                     url: 'other/PageOne.vue'
                                 },
                                 {
@@ -47,6 +52,7 @@ export default {
                                     name: 'page2',
                                     label: '页面2',
                                     icon: 'setting',
+                                    meta: { title: '摩尔' },
                                     url: 'other/PageTwo.vue'
                                 }
                             ]
@@ -56,7 +62,7 @@ export default {
                     message: '获取成功'
                 }
             }
-        } else if (username === '1' && password === '1') {
+        } else if (username === 'user' && password === 'user') {
             return {
                 code: 20000,
                 data: {
@@ -65,6 +71,7 @@ export default {
                             name: 'home',
                             label: '首页',
                             icon: 's-home',
+                            meta: { title: '首页' },
                             url: 'home/index'
                         },
                         {
@@ -72,6 +79,7 @@ export default {
                             name: 'mall',
                             label: '商品管理',
                             icon: 'video-play',
+                            meta: { title: '商品管理' },
                             url: 'mall/index'
                         }
                     ],
