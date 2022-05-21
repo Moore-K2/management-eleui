@@ -169,7 +169,7 @@ export default {
       // console.log(this.$store.state);
       return this.$store.state.tab.isCollapse;
     },
-    // 获取menu
+    // 权限管理-获取menu
     asyncMenu() {
       return this.$store.state.tab.menu;
     },

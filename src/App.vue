@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!-- 指定展示位置 -->
+    <!-- router指定的展示内容--位置 -->
     <router-view> </router-view>
   </div>
 </template>

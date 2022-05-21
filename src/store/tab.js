@@ -13,7 +13,7 @@ export default {
             label: "首页",
             icon: 's-home',
         }],
-        //高亮所处 的当前菜单
+        //当前菜单
         currentmenu: null,
 
         // 权限管理
@@ -31,6 +31,7 @@ export default {
                 state.currentmenu = valItem
                     // 检验当前面包屑是中否已存在该菜单的name
                 const r = state.tabsList.findIndex(item => item.name === valItem.name)
+                    // 若该菜单名字在breadcrumb没有，则添加
                 if (r === -1) {
                     state.tabsList.push(valItem)
                 }
@@ -46,7 +47,7 @@ export default {
                 // 用splice(位置，删除个数)执行删除
             state.tabsList.splice(index, 1)
         },
-
+        //权限管理的内容
         setMenu(state, val) {
             // 从permission种获取menu
             state.menu = val
