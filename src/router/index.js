@@ -60,7 +60,14 @@ const routes = [{
         component: () =>
             import ('../views/login/Login.vue')
 
-    }
+    },
+    // 设置404
+    // {
+    //     path: '*',
+    //     name: 'notFound',
+    //     component: () =>
+    //         import ('../views/404/Index.vue')
+    // }
 ]
 
 // 创建router实例对象路由器

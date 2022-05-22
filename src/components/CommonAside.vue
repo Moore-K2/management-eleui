@@ -10,7 +10,7 @@
       @close="handleClose"
       :collapse="isCollapse"
     >
-      <h3>
+      <h3 :style="isCollapse ? 'color: red' : 'color:#ffd04b'">
         {{ isCollapse ? "Moore" : "摩尔の庄园" }}
       </h3>
       <!-- 菜单：遍历首页，商品管理，用户管理 -->
@@ -49,6 +49,13 @@
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
+      <!-- 个人中心 -->
+      <el-menu-item index="5">
+        <i class="el-icon-s-promotion"></i>
+        <span slot="title">
+          <router-link to="/page1"> 个人中心</router-link>
+        </span>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -148,8 +155,7 @@ export default {
       this.$router.push({
         name: item.name,
       });
-      // 开了namespaced
-      // this.$store.commit("tab/selectMenu", item);
+      // 用编程式路由导航目的便于-用于面包屑
       this.$store.commit("selectMenu", item);
     },
   },

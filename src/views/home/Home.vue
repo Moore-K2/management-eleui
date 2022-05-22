@@ -10,7 +10,7 @@
             <img :src="userImg" />
             <div class="user-info">
               <p class="name">Administrator</p>
-              <p class="access">超级管理员</p>
+              <p class="access">管理员</p>
             </div>
           </div>
           <!-- 登录地点 -->
