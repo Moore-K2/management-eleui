@@ -49,12 +49,10 @@
         </el-menu-item-group>
       </el-submenu>
       <!-- 个人中心 -->
-      <!-- <el-menu-item index="5">
-        <i class="el-icon-s-promotion"></i>
-        <span slot="title">
-          <router-link to="/page1"> 个人中心</router-link>
-        </span>
-      </el-menu-item> -->
+      <el-menu-item @click="Addsuper" index="/mall">
+        <i class="el-icon-video-camera-solid"></i>
+        <span slot="title"> 我是超人 </span>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -143,6 +141,13 @@ export default {
     };
   },
   methods: {
+    Addsuper() {
+      this.$store.commit("selectMenu", {
+        name: "mall",
+        path: "/mall",
+        label: "超人",
+      });
+    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
