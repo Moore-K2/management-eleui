@@ -56,7 +56,26 @@ export default {
                                     url: 'other/PageTwo.vue'
                                 }
                             ]
-                        }
+                        },
+                        {
+                            label: "个人中心",
+                            icon: "s-promotion",
+                            children: [{
+                                    path: "/help1",
+                                    name: "help1",
+                                    label: "注意事项",
+                                    icon: "flag",
+                                    url: "Help/Help1",
+                                },
+                                {
+                                    path: "/help2",
+                                    name: "help2",
+                                    label: "紧急求助",
+                                    icon: "message-bell",
+                                    url: "Help/Help2",
+                                },
+                            ],
+                        },
                     ],
                     token: Mock.Random.guid(),
                     message: '获取成功'
@@ -82,7 +101,26 @@ export default {
                             icon: 'video-play',
                             meta: { title: '商品管理' },
                             url: 'mall/index'
-                        }
+                        },
+                        {
+                            label: "个人中心",
+                            icon: "s-promotion",
+                            children: [{
+                                    path: "/help1",
+                                    name: "help1",
+                                    label: "注意事项",
+                                    icon: "flag",
+                                    url: "Help/Help1",
+                                },
+                                {
+                                    path: "/help2",
+                                    name: "help2",
+                                    label: "紧急求助",
+                                    icon: "message-bell",
+                                    url: "Help/Help2",
+                                },
+                            ],
+                        },
                     ],
                     token: Mock.Random.guid(),
                     message: '获取成功'

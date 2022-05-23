@@ -55,3 +55,49 @@ module.exports = {
 用this.$route.params.id获取传递进来的参数值
 ```
 
+6 下载less 和解析器
+
+```javascript
+npm i less
+npm i less-loader
+```
+
+7 menu菜单有多个两级菜单，如何避免打开一个另外一个同时打开。
+
+绑定唯一标志index
+
+```javascript
+<el-submenu
+        v-for="(item, index) in hasChildren"
+        :key="item.path"
+        :index="index + ''"
+      >
+```
+
+
+
+```javascript
+<el-submenu
+        v-for="(item, index) in hasChildren"
+        :key="item.path"
+        :index="index + ''"
+      >
+        <template slot="title">
+          <i :class="'el-icon-' + item.icon"></i>
+          <span slot="title">{{ item.label }}</span>
+        </template>
+        <!-- 二级菜单 -->
+        <el-menu-item-group
+          v-for="(subItem, subIndex) in item.children"
+          :key="subItem.path"
+        >
+          <el-menu-item
+            @click="clickMenu(subItem)"
+            :index="subIndex.toString()"
+          >
+            {{ subItem.label }}
+          </el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+```
+

@@ -9,6 +9,7 @@
       @open="handleOpen"
       @close="handleClose"
       :collapse="isCollapse"
+      router
     >
       <h3 :style="isCollapse ? 'color: red' : 'color:#ffd04b'">
         {{ isCollapse ? "Moore" : "摩尔の庄园" }}
@@ -27,10 +28,11 @@
 
       <!-- 有children的 -->
       <!-- 一级菜单----其他  -->
+      <!-- 指定了index就可避免嵌套路由同时展开，也能绑定事件 -->
       <el-submenu
-        v-for="item in hasChildren"
+        v-for="(item, index) in hasChildren"
         :key="item.path"
-        :index="item.path + ''"
+        :index="index + ''"
       >
         <template slot="title">
           <i :class="'el-icon-' + item.icon"></i>
@@ -38,24 +40,21 @@
         </template>
         <!-- 二级菜单 -->
         <el-menu-item-group
-          v-for="(subItem, subIndex) in item.children"
+          v-for="subItem in item.children"
           :key="subItem.path"
         >
-          <el-menu-item
-            @click="clickMenu(subItem)"
-            :index="subIndex.toString()"
-          >
+          <el-menu-item @click="clickMenu(subItem)" :index="subItem.path">
             {{ subItem.label }}
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <!-- 个人中心 -->
-      <el-menu-item index="5">
+      <!-- <el-menu-item index="5">
         <i class="el-icon-s-promotion"></i>
         <span slot="title">
           <router-link to="/page1"> 个人中心</router-link>
         </span>
-      </el-menu-item>
+      </el-menu-item> -->
     </el-menu>
   </div>
 </template>
@@ -119,8 +118,8 @@ export default {
       //   },
       //   //#region
       //   // {
-      //   //   label: "帮助",
-      //   //   icon: "phone",
+      //   //   label: "个人中心",
+      //   //   icon: "s-promotio",
       //   //   children: [
       //   //     {
       //   //       path: "/help1",

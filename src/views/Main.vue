@@ -17,7 +17,7 @@
         <CommonTags></CommonTags>
         <!-- 3。主内容区-->
         <el-main>
-          <!-- 将子路由组件想展示的页面放入 -->
+          <!-- 将Main子路由组件想展示的页面放入 -->
           <router-view></router-view>
         </el-main>
         <!-- 4. 未来整一个footer -->
@@ -54,4 +54,4 @@ export default {
   // 设置main可覆盖
   padding-top: 0;
 }
-</style>
+</style>  
