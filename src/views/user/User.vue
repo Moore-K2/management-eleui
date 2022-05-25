@@ -33,9 +33,9 @@
           >搜索</el-button
         >
 
-        <el-button type="primary" @click="getList(searchForm.keyword)">
+        <!-- <el-button type="primary" @click="getList(searchForm.keyword)">
           搜索
-        </el-button>
+        </el-button> -->
       </CommonForm>
     </div>
     <!-- 引用CommonTable组件 -->
