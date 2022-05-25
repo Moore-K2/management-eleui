@@ -11,7 +11,7 @@
       :collapse="isCollapse"
       router
     >
-      <h3 :style="isCollapse ? 'color: red' : 'color:#ffd04b'">
+      <h3 :style="isCollapse ? 'color: pink' : 'color:#ffd04b'">
         {{ isCollapse ? "Moore" : "摩尔の庄园" }}
       </h3>
       <!-- 菜单：遍历首页，商品管理，用户管理 -->
