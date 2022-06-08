@@ -74,6 +74,7 @@ export default {
           // 确保没登录前不能进入我们的主页
           this.$store.commit("setToken", res.data.token);
           this.$store.commit("addMenu", this.$router);
+          console.log("111");
           this.$router.push({
             name: "home",
             // params: { name: this.form.username },
