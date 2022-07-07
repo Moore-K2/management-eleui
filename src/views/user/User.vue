@@ -29,19 +29,14 @@
         :inline="true"
         ref="form"
       >
-        <el-button type="primary" @click="getList(searchForm.keyword)"
-          >搜索</el-button
-        >
-
-        <!-- <el-button type="primary" @click="getList(searchForm.keyword)">
+        <el-button type="primary" @click="getList(searchForm.keyword)">
           搜索
-        </el-button> -->
+        </el-button>
       </CommonForm>
     </div>
     <!-- 引用CommonTable组件 -->
     <!-- 注意这儿 @changePage,@edit="editUser"与@del="delUser"是自定义事件 
      getlist()右括号是因为要传入参数    -->
-
     <CommonTable
       :tableLabel="tableLabel"
       :tableData="tableData"

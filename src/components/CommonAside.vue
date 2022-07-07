@@ -51,7 +51,7 @@
       <!-- 个人中心 -->
       <el-menu-item @click="Addsuper" index="/mall">
         <i class="el-icon-video-camera-solid"></i>
-        <span slot="title"> 我是超人 </span>
+        <span slot="title"> 紧急求助 </span>
       </el-menu-item>
     </el-menu>
   </div>

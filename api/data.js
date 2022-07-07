@@ -1,6 +1,12 @@
 import axios from "./axios";
 
 // 这个文档是写所有接口请求的
+// export const getMenu = (param) => axios.request({
+//     url: '/permission/getMenu',
+//     method: 'post',
+//     data: param
+// })
+
 export const getMenu = (param) => {
     return axios.request({
         url: '/permission/getMenu',
@@ -8,6 +14,7 @@ export const getMenu = (param) => {
         data: param
     })
 }
+
 
 export const getData = () => {
     return axios.request({

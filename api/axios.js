@@ -2,7 +2,7 @@
 import axios from "axios"
 import config from "../config"
 
-// 判断当前的开发环境？dev:pro
+// 判断当前的开发环境？dev:pro --/api/
 const baseUrl = process.env.NODE_ENV === 'develpment' ? config.baseUrl.dev : config.baseUrl.pro
 
 //定义HTTPrequest请求类
@@ -41,6 +41,8 @@ class HttpRequest {
             return Promise.reject(error);
         })
     }
+
+    // 主要功能--方法
     request(options) {
         const instance = axios.create() // axios实例创建
             // options：拿到相关配置。解构,后面的参数会覆盖前面对象中的参数，前面有的会存在

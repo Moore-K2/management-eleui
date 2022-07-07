@@ -6,13 +6,16 @@
       :key="item.label"
       :label="item.label"
     >
+      <!-- input框 -->
       <el-input
         v-if="item.type === 'input'"
         :placeholder="`请输入${item.label}`"
         v-model="form[item.model]"
       ></el-input>
+      <!-- 开关框 -->
       <el-switch v-if="item.type === 'switch'" v-model="form[item.model]">
       </el-switch>
+      <!-- 时间选取 -->
       <el-date-picker
         v-if="item.type === 'date'"
         type="date"
@@ -21,6 +24,7 @@
         v-model="form[item.model]"
       >
       </el-date-picker>
+      <!-- 选择框 -->
       <el-select
         v-if="item.type === 'select'"
         :placeholder="`请选择${item.label}`"
