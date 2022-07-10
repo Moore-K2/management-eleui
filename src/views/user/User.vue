@@ -76,7 +76,7 @@ export default {
         { model: "birth", label: "出生日期", type: "date" },
         { model: "addr", label: "地址", type: "input" },
       ],
-      // form中的值
+      // form中的值-表单数据对象
       operateForm: {
         name: "",
         addr: "",
@@ -137,7 +137,7 @@ export default {
             message: "牛的，操作成功！",
             type: "success",
           });
-          this.isShow = false;
+          this.isShow = false; // 关闭dialogz
           this.getList();
         });
       } else {
@@ -194,6 +194,7 @@ export default {
         name,
         // 将dara结构出来，命名为res
       }).then(({ data: res }) => {
+        console.log(res);
         // 给tableData赋值
         this.tableData = res.list.map((item) => {
           // 根据数组随机生成的0/1来给数组添加属性sexLabel

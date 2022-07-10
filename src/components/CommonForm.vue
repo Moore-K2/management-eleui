@@ -7,6 +7,7 @@
       :label="item.label"
     >
       <!-- input框 -->
+      <!-- form[item.model]就是用类似字典的方式啊 -->
       <el-input
         v-if="item.type === 'input'"
         :placeholder="`请输入${item.label}`"
