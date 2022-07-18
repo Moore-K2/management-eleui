@@ -229,6 +229,7 @@ export default {
 
         // 1 初始化
         const myLineChart = echarts.init(this.$refs.linechart);
+        console.log("!!!", this.$refs.linechart);
         // 2 指定折现图表的配置项和数据
         const options = {
           title: {

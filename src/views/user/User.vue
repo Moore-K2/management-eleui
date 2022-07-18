@@ -201,6 +201,7 @@ export default {
           item.sexLabel = item.sex === 0 ? "女" : "男";
           return item;
         });
+        console.log("表格数据", this.tableData);
         // 获取当前数据的条目，count在user.js中定义了
         this.config.total = res.count;
         this.config.loading = false;
