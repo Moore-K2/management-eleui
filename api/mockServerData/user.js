@@ -94,10 +94,10 @@ export default {
      * @return {*}
      */
     deleteUser: config => {
-        // console.log("config是：", config)
-        // console.log("body是：", config.body)
+        console.log("config是：", config)
+        console.log("body是：", config.body)
         const { id } = JSON.parse(config.body)
-            // console.log("@", id)
+        console.log("@", typeof id)
         if (!id) {
             return {
                 code: -999,

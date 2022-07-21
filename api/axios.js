@@ -4,12 +4,13 @@ import config from "../config"
 
 // 判断当前的开发环境？dev:pro --/api/
 const baseUrl = process.env.NODE_ENV === 'develpment' ? config.baseUrl.dev : config.baseUrl.pro
-
+console.log("process.env.NODE_ENV:", process.env.NODE_ENV, config.baseUrl.dev);
 //定义HTTPrequest请求类
 class HttpRequest {
     // 构造函数，传入new的baseUrl
     constructor(baseUrl) {
         this.baseUrl = baseUrl
+
     }
 
     // 定义axios的一些相关配置
